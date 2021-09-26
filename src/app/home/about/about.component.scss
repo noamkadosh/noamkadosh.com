@@ -1,0 +1,14 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+#about .about-text {
+  max-width: 500px;
+  min-width: 250px;
+  width: 70%;
+}
+
+#about .shiny {
+  color: $shiny;
+  background-clip: text;
+}

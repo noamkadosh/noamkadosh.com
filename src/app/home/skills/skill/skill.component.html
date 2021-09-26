@@ -1,0 +1,10 @@
+<div class="skill-icon" id="{{ skill.name | spaceToDash | lowercase }}"></div>
+<h3 class="headline">{{ skill.name }}</h3>
+<div class="rating">
+    <svg fill="#a1a1a6" width="1em" height="1em" *ngFor="let item of [].constructor(skill.rating)">
+        <use href="../../assets/icons/star.svg#star" />
+    </svg>
+    <svg fill="#a1a1a6" width="1em" height="1em" *ngFor="let item of [].constructor(5 - skill.rating)">
+        <use href="../../assets/icons/empty-star.svg#empty-star" />
+    </svg>
+</div>

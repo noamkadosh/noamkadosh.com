@@ -1,0 +1,156 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+//### Tweet Grid ###//
+.tweet {
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  grid-template-rows: fit-content fit-content fit-content fit-content;
+  gap: 10px 10px;
+  grid-template-areas:
+      "tweet-header tweet-header tweet-link"
+      "tweet-content tweet-content tweet-content"
+      "twitter-media twitter-media twitter-media"
+      "tweet-date tweet-date retweeted";
+}
+
+.tweet-header { grid-area: tweet-header; }
+.tweet-link { grid-area: tweet-link; }
+.tweet-content { grid-area: tweet-content; }
+.twitter-media { grid-area: twitter-media; }
+.tweet-date { grid-area: tweet-date; }
+.retweeted { grid-area: retweeted; }
+//### Tweet Grid - END ###//
+
+//### Tweet Header Grid ###//
+.tweet-header {
+  display: grid;
+  grid-template-columns: min-content auto;
+  grid-template-rows: fit-content fit-content;
+  gap: 0px 10px;
+  grid-template-areas:
+      "tweet-header-avatar tweet-header-name"
+      "tweet-header-avatar tweet-header-screen-name";
+}
+
+.tweet-header-avatar { grid-area: tweet-header-avatar; }
+.tweet-header-name { grid-area: tweet-header-name; }
+.tweet-header-screen-name { grid-area: tweet-header-screen-name; }
+//### Tweet Header Grid - END ###//
+
+:host {
+  width:100%;
+  margin-bottom: 0.75rem;
+}
+
+#twitter {
+  width: 100%;
+}
+
+#twitter h3 svg {
+  margin-right: 0.5rem;
+  fill: $secondary-headline;
+  cursor: default !important;
+}
+
+#twitter .tweet-list {
+  max-width: 750px;
+  min-width: 250px;
+  width: 95%;
+  list-style: none;
+  padding: 0;
+  margin: 3rem 0;
+}
+
+@media only screen and (min-width: 600px) {
+  #twitter .tweet-list {
+    max-width: 750px;
+    min-width: 250px;
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #twitter .tweet-list {
+    max-width: 750px;
+    min-width: 250px;
+    width: 70%;
+  }
+}
+
+.tweet {
+  background: #1d1d1f;
+  border-radius: 18px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.tweet-header {
+  text-decoration: none;
+}
+
+.tweet-header-avatar {
+  border-radius: 50%;
+}
+
+.tweet-header .tweet-header-screen-name {
+  margin: 0;
+  margin-bottom: calc(24px - 1.235rem);
+}
+
+.tweet-header .tweet-header-name {
+  margin: 0;
+  margin-top: calc(24px - 0.941rem);
+}
+
+.tweet-link svg {
+  opacity: 0.85;
+  fill: $chip-background;
+}
+
+.tweet-link:hover svg {
+  opacity: 1;
+}
+
+.twitter-media {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.twitter-media img {
+  width: 75%;
+  border-radius: 18px;
+}
+
+.tweet-date {
+  display: flex;
+  direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.tweet-date p {
+  margin: 0;
+}
+
+.retweeted {
+  fill: $text; // #19CF86; 
+  opacity: 0.85; // 0.5;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.retweeted svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: default !important;
+}

@@ -1,0 +1,25 @@
+<app-spinner [isHidden]="!isLoading" [isTransparent]='false'></app-spinner>
+<section class="content-section flex-center-column" id="auth-section" *ngIf="!isLoading">
+    <div class="form-container">
+        <h3 class="headline text-center">{{ loginMode ? 'Log In' : 'Sign Up' }}</h3>
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" id="login-form" class="flex-center-column">
+            <div class="form-group flex-center-column">
+                <label for="email" class="text">Username (Email)</label>
+                <input type="email" name="email" id="email" ngModel required email/>
+            </div>
+            <div class="form-group flex-center-column">
+                <label for="password" class="text">Password</label>
+                <input type="password" name="password" id="password" ngModel required>
+            </div>
+            <div class="form-group flex-center-column" *ngIf="!loginMode">
+                <label for="password_confirmation" class="text">Confirm Password</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" ngModel required>
+            </div>
+            <a class="link tiny" target="_blank" rel="noopener noreferrer" href="" *ngIf="loginMode"><svg class="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 16 16"><path d="M7.5 4.5L6.44 5.56 9.88 9l-3.44 3.44L7.5 13.5 12 9z"/></svg><span class="link-text">Forgot Password?</span></a> <br>
+            <div class="btn-container">
+                <button class="btn gradient-btn" type="submit">{{ loginMode ? 'Log In' : 'Sign Up' }}</button>
+                <button class="link btn-link" type="button" (click)="toggleAuth()">{{ !loginMode ? 'Log In' : 'Sign Up' }}</button>
+            </div>
+        </form>
+    </div>
+</section>

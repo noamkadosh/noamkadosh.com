@@ -1,0 +1,67 @@
+  <!-- Mobile Navigation -->
+  <nav id="mobile-navigation" class="no-padding" [@changeColor]="isScrolled || isNotFound ? 'colored' : 'transparent'"
+    [hidden]="mobileQuery.matches ? false : true">
+    <button class="flex-center-column mobile-menu-button" tabindex="0" (click)="toggleMobileMenu()">
+      <span class="mobile-menu-bar" [@animateTopBar]="mobileMenuButtonState"
+        (@animateTopBar.done)="animateMobileMenu($event)"></span>
+      <span class="mobile-menu-bar" [@animateBottomBar]="mobileMenuButtonState"
+        (@animateBottomBar.done)="animateMobileMenu($event)"></span>
+    </button>
+    <div class="hidden-menu-container" [@toggleMobileMenu]="isMobileMenuClicked ? 'open' : 'closed'">
+      <button class="nav-link" tabindex="0" *ngFor="let link of links" [fragment]="link" pageScroll
+        [pageScrollDuration]="2000" [pageScrollOffset]="mobileQuery.matches ? 48 : 52" (click)="toggleMobileMenu()">
+        <span class="hover-effect">{{ link | removeDash | titlecase }}</span>
+      </button>
+    </div>
+    <button id="mobile-logo-item" tabindex="0" fragment="home" pageScroll [pageScrollDuration]="618">
+      <img src="/assets/noam-kadosh-logo.svg" alt="Noam's Logo" id="logo">
+    </button>
+    <div class="nav-social">
+      <a class="nav-social-item" href="https://www.linkedin.com/in/noamkadosh/">
+        <svg width="20px" height="20px">
+          <use width="20px" href="./assets/icons/linkedin.svg#linkedin" />
+        </svg>
+      </a>
+      <a class="nav-social-item" href="https://github.com/noamkadosh">
+        <svg width="20px" height="20px">
+          <use width="20px" href="./assets/icons/github.svg#github" />
+        </svg>
+      </a>
+      <a class="nav-social-item" href="https://twitter.com/Noam_Kadosh">
+        <svg width="20px" height="20px">
+          <use width="20px" href="./assets/icons/twitter.svg#twitter" />
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Desktop Navigation -->
+  <nav id="desktop-navigation" [@changeColor]="isScrolled || isNotFound ? 'colored' : 'transparent'"
+    [hidden]="mobileQuery.matches ? true : false">
+    <a class="logo" tabindex="0" fragment="home" pageScroll [pageScrollDuration]="618">
+      <img src="/assets/noam-kadosh-logo.svg" alt="Noam's Logo" id="logo">
+    </a>
+    <div class="nav-links">
+      <button class="nav-link" tabindex="0" *ngFor="let link of links" [fragment]="link" pageScroll
+        [pageScrollDuration]="618" [pageScrollOffset]="mobileQuery.matches ? 48 : 52">
+        <span class="nav-link"> {{ link | removeDash | titlecase }} </span>
+      </button>
+    </div>
+    <div class="nav-social">
+      <a class="nav-social-item" href="https://www.linkedin.com/in/noamkadosh/">
+        <svg width="20px" height="20px">
+          <use width="20px" href="./assets/icons/linkedin.svg#linkedin" />
+        </svg>
+      </a>
+      <a class="nav-social-item" href="https://github.com/noamkadosh">
+        <svg width="20px" height="20px">
+          <use width="20px" href="./assets/icons/github.svg#github" />
+        </svg>
+      </a>
+      <a class="nav-social-item" href="https://twitter.com/Noam_Kadosh">
+        <svg width="20px" height="20px">
+          <use width="20px" href="./assets/icons/twitter.svg#twitter" />
+        </svg>
+      </a>
+    </div>
+  </nav>

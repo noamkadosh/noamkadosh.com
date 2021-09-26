@@ -1,0 +1,8 @@
+<section id="skills" class="content-section flex-center-column">
+  <h2 class="headline" appScrollingAnimation>Skills</h2>
+  <ul class="skills-list">
+      <li class="skills-item" appScrollingAnimation *ngFor="let skill of skills">
+          <app-skill [skill]="skill"></app-skill>
+      </li>
+  </ul>
+</section>

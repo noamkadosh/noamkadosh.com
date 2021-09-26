@@ -1,0 +1,24 @@
+<section class="admin-section flex-center-column-top" id="about-admin-section">
+    <button class="admin-header"  (click)="toggleAdminMenu()">
+        <h3 class="headline">About</h3>
+        <svg [class.rotate-chevron]="isAdminMenuClicked" xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 407.436 407.436">
+            <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "/>
+        </svg>
+    </button>
+    <div class="collapsible" [@toggleAdminMenu]="isAdminMenuClicked ? 'open' : 'closed'">
+        <form #aboutForm="ngForm" (ngSubmit)="onSubmit(aboutForm)" id="about-form" class="flex-center-column">
+            <div class="form-group flex-center-column">
+                <label for="text" class="text">Text</label>
+                <textarea name="text" id="text" [ngModel]="about.text" rows="8"></textarea>
+            </div>
+            <div class="form-group flex-center-column">
+                <label for="bold_text" class="text">Bold Text</label>
+                <input type="text" name="bold_text" id="bold_text" [ngModel]="about.bold_text">
+            </div>
+            <app-spinner [isHidden]="!isLoading" [animated]="false" [isTransparent]='true' *ngIf="isLoading"></app-spinner>
+            <div class="btn-container" *ngIf="!isLoading">
+                <button class="btn gradient-btn" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</section>

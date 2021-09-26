@@ -1,0 +1,17 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+#page-not-found {
+  width: 100%;
+  height: calc(100vh - 21px);
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+  #page-not-found {
+    height: calc(100vh - 24px);
+  }
+}

@@ -1,0 +1,4 @@
+<div class="flex-center-row-left error-message-container" [ngClass]="isSuccess ? 'success-container' : 'error-container'" [@hide]="isHidden ? 'hidden' : 'visible'">
+    <p class="error-header" [ngClass]="isSuccess ? 'success' : 'error'">{{ isSuccess ? "Success!" : "Error!" }}</p>
+    <p class="error-message tiny" [ngClass]="isSuccess ? 'success' : 'error'">{{ message }}</p>
+</div>

@@ -1,0 +1,52 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+.error-message-container {
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);  
+    box-sizing: border-box;
+    padding: 0.75rem 1.5rem;
+    z-index: 1500;
+    min-width: 300px;
+    max-width: 100vw;
+    height: auto;
+    position: fixed;
+    bottom: 5px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 4px;
+}
+
+@media only screen and (min-width: 600px) {
+    .error-message-container {
+        min-width: 450px;
+    }
+  }
+
+.error-message-container .error-header,
+.error-message-container .error-message {
+    margin-block-end: 0;
+    margin-block-start: 0;
+}
+
+.error-message-container .error-header {
+    margin-right: 0.5rem;
+}
+
+.error-container {
+    background: $error;
+    border-left: 5px solid darken($error, 50);
+}
+
+.error {
+    color: darken($error, 70);
+}
+
+.success-container {
+    background: $success;
+    border-left: 5px solid darken($success, 50);}
+
+.success {
+    color: darken($success, 70);
+}

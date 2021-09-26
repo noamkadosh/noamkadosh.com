@@ -1,0 +1,17 @@
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+@import "~/src/scss/mixins";
+
+#admin-wrapper {
+    padding-top: 1rem;
+    box-sizing: border-box;
+    min-height: calc(100vh - 40px);
+}
+
+#admin-wrapper h3 {
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 1rem;
+}

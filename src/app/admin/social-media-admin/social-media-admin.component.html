@@ -1,0 +1,20 @@
+<section class="admin-section flex-center-column-top" id="about-twitter-section">
+    <button class="admin-header"  (click)="toggleAdminMenu()">
+        <h3 class="headline">Twitter</h3>
+        <svg [class.rotate-chevron]="isAdminMenuClicked" xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 407.436 407.436">
+            <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "/>
+        </svg>
+    </button>
+    <div class="collapsible" [@toggleAdminMenu]="isAdminMenuClicked ? 'open' : 'closed'">
+        <form #twitterForm="ngForm" (ngSubmit)="onSubmit(twitterForm)" id="twitter-form" class="flex-center-column">
+            <div class="form-group flex-center-row-start">
+                <label for="tweet_count" class="text">Number of tweeets to display</label>
+                <input type="number" name="tweet_count" id="tweet_count" min="1" max="5" [ngModel]="twitterSettings.tweet_count">
+            </div>
+            <app-spinner [isHidden]="!isLoading" [animated]="false" [isTransparent]='true' *ngIf="isLoading"></app-spinner>
+            <div class="btn-container" *ngIf="!isLoading">
+                <button class="btn gradient-btn" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</section>

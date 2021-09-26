@@ -1,0 +1,15 @@
+<section id="home" class="content-section flex-center-column" appGradientScrollingAnimation>
+  <div class="hero-text" appScrollingAnimation>
+    <h3 class="secondary-headline text-left no-margins">Hello! I am</h3>
+    <h1 class="headline">{{ hero.title }}</h1>
+    <hr class="hero-hr"/>
+    <h3 class="gradient-text"><span>{{ hero.subtitle }}</span></h3>
+  </div>
+  <div class="button-wrapper">
+    <button class="icon" fragment="about" pageScroll [pageScrollDuration]="618" [pageScrollOffset]="mobileQuery.matches ? 48 : 52" appScrollingAnimation2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 18 18">
+        <path d="M12.44 6.44L9 9.88 5.56 6.44 4.5 7.5 9 12l4.5-4.5z"/>
+      </svg>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+figure {
+  border: 0;
+  border-left: solid 0.618rem white;
+  border-image: linear-gradient($gradient-from, $gradient-to) 30;
+  margin-inline-end: 1rem;
+  margin-inline-start: 1rem;
+}
+
+// Add rest of styles.
+#quote {
+  width: 100%;
+}
+
+#statement {
+  width: 90%;
+}
+
+#statement h2 {
+  font-style: italic !important;
+}
+
+#author {
+  float: right;
+}

@@ -1,0 +1,12 @@
+<section id="about" class="content-section flex-center-column">
+  <p class="text bold about-text" appScrollingAnimation appShiny>
+    <span class="emphasis">Hi there! </span>{{ about.text }}</p>
+  <div class="action-container text-center">
+    <div class="gradient-text-container" appScrollingAnimation>
+      <p class="gradient-text"><span>{{ about.bold_text }}</span></p>
+    </div>
+    <div class="action-row" appScrollingAnimation>
+      <button class="btn gradient-btn" fragment="contact" pageScroll [pageScrollDuration]="618" [pageScrollOffset]="mobileQuery.matches ? 48 : 52">Contact</button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<button class="admin-item-header" (click)="toggleMenu()">
+    <h3 class="headline">{{ addMode ? "Add New Skill" : skill.name }}</h3>
+    <svg [class.rotate-chevron]="isItemClicked" xmlns="http://www.w3.org/2000/svg" width="0.75rem" height="0.75rem"
+        viewBox="0 0 407.436 407.436">
+        <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 " />
+    </svg>
+</button>
+<div class="sub-collapsible" [@toggleMenu]="isItemClicked ? 'open' : 'closed'">
+    <form #skillForm="ngForm" (ngSubmit)="onSubmit(skillForm)" class="flex-center-column">
+        <div class="form-group flex-center-column">
+            <label for="skill_name" class="text">Name</label>
+            <input type="text" name="skill_name" id="skill_name" [ngModel]="skill.name" />
+        </div>
+        <div class="form-group flex-center-column">
+            <label for="skill_rating" class="text">Rating</label>
+            <input type="number" name="skill_rating" id="skill_rating" [ngModel]="skill.rating">
+        </div>
+        <app-spinner [isHidden]="!isLoading" [animated]="false" [isTransparent]='true' *ngIf="isLoading"></app-spinner>
+        <div class="btn-container" *ngIf="!isLoading">
+            <button class="btn gradient-btn" type="submit">{{ addMode ? "Create" : "Save" }}</button>
+            <button class="btn warn-btn" type="button" (click)="onDelete()" *ngIf="!addMode">Delete</button>
+        </div>
+    </form>
+</div>

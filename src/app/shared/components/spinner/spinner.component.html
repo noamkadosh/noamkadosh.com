@@ -1,0 +1,10 @@
+<div [ngClass]="isTransparent ? 'transparent-back' : 'black-back'"
+[@hide]="animated && isHidden ? 'hidden' : animated && !isHidden ? 'visible' : !animated && isHidden ? 'hidden-non-animated' : 'visible-non-animated'" 
+class="flex-center overlay">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>

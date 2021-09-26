@@ -1,0 +1,9 @@
+<section id="timeline" class="content-section flex-center-column">
+    <h2 class="headline" appScrollingAnimation>Experience <span class="secondary-headline">&</span> Education</h2>
+    <ul class="timeline-list">
+        <li class="timeline-list-item highlight" appScrollingAnimation *ngFor="let timeline of timelines">
+            <app-timeline-item [timeline]="timeline"></app-timeline-item>
+        </li>
+
+    </ul>
+</section>

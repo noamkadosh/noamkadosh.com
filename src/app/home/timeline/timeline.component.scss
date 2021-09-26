@@ -1,0 +1,100 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+#timeline .timeline-list {
+  max-width: 750px;
+  min-width: 250px;
+  width: 95%;
+}
+
+@media only screen and (min-width: 600px) {
+  #timeline .timeline-list {
+    max-width: 750px;
+    min-width: 250px;
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #timeline .timeline-list {
+    max-width: 750px;
+    min-width: 250px;
+    width: 70%;
+  }
+}
+
+#timeline .headline > span.secondary-headline {
+  font-size: 61.8%;
+}
+
+.timeline-list {
+  list-style: none;
+  padding: 7.5vh 0 0 0;
+  margin: 0;
+}
+
+.timeline-list-item {
+  border: 0;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 3px solid;
+  border-image: linear-gradient(to right, $gradient-from, $gradient-to);
+  border-image-slice: 1;
+  margin: 0;
+  padding: 40px;
+  position: relative;
+  // &:before {
+  //   content: '';
+  //   position: absolute;
+  //   border-radius: 50%;
+  //   padding: 10px;
+  //   height: 1rem;
+  //   width: 1rem;
+  //   text-align: center;
+  //   display: inline-block;
+  //   vertical-align: top;
+  //   line-height: 1rem;
+  //   font-size: 1rem;
+  //   background: linear-gradient(to right, #005e7f, #61b6cd);
+  // }
+}
+
+.timeline-list-item:nth-child(odd) {
+  border-right: 3px solid;
+  padding-left: 5px;
+  
+  // &:before {
+  //   left: 100%; 
+  //   margin-left: -20px;
+  // }
+}
+//even number borders
+.timeline-list-item:nth-child(even) {
+  border-left: 3px solid;
+  padding-right: 5px;
+  
+  // &:before {
+  //   right: 100%; 
+  //   margin-right: -20px;
+  // }
+}
+//handle first and last
+.timeline-list-item:first-child {
+  // border-top: 0;
+  border-top-right-radius:0;
+  border-top-left-radius:0;
+}
+.timeline-list-item:last-child {
+  border-bottom: 3px solid;
+  border-bottom-right-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.timeline-list-item:nth-child(even).highlight {
+  box-shadow: $highlight-shadow -25px 0 28px 0;
+}
+
+.timeline-list-item:nth-child(odd).highlight {
+  box-shadow: $highlight-shadow 25px 0 28px 0;
+}

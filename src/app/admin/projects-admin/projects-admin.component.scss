@@ -1,0 +1,16 @@
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+@import "~/src/scss/mixins";
+
+#projects-form .form-group label {
+    display: inline-block;
+    width: initial;
+    margin: 0 0.5rem;
+    padding-left: 1rem;
+}
+
+#projects-form .form-group input {
+    display: inline-block;
+    width: 2rem;
+    margin: 0 0.5rem;
+}

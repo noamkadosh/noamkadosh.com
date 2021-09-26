@@ -1,0 +1,34 @@
+<div id="twitter" class="flex-center-column">
+  <h3 class="flex-center-row secondary-headline" appScrollingAnimation>
+    <svg width="1em" height="1em">
+      <use href="../../assets/icons/twitter.svg#twitter" />
+    </svg>
+    twitter
+  </h3>
+  <ul class="tweet-list">
+    <li class="tweet" *ngFor="let tweet of tweets" appScrollingAnimation>
+      <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/{{ tweet.username }}" class="tweet-header">
+        <img class="tweet-header-avatar" src="{{ tweet.profile_pic_url }}" alt="{{ tweet.name }}">
+        <p class="headline tweet-header-name">{{ tweet.name }}</p>
+        <p class="secondary-headline tiny tweet-header-screen-name">@{{ tweet.username }}</p>
+      </a>
+      <a target="_blank" rel="noopener noreferrer" href="{{ tweet.tweet_url }}" class="tweet-link">
+        <svg width="24px" height="24px">
+          <use href="../../assets/icons/twitter.svg#twitter" />
+        </svg>
+      </a>
+      <p class="emphasis tweet-content">{{ tweet.content }}</p>
+      <div class="twitter-media">
+        <img *ngFor="let imgUrl of tweet.media" src="{{ imgUrl }}" alt="{{ tweet.content }}">
+      </div>
+      <div class="tweet-date">
+        <p class="text tiny">{{ tweet.time }} &#183; {{ tweet.dateString }}</p>
+      </div>
+      <div class="retweeted" *ngIf="tweet.retweeted">
+        <svg>
+          <use href="../../assets/icons/retweet.svg#retweet"/>
+        </svg>
+      </div>
+    </li>
+  </ul>
+</div>

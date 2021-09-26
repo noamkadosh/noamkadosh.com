@@ -1,0 +1,38 @@
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+@import "~/src/scss/mixins";
+
+#desktop-navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: $background;
+}
+
+#desktop-navigation button.nav-link {
+    background: none;
+    border: none;
+    font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;
+  }
+
+  .logo {
+    background: none;
+    border: none;
+  }
+
+  @media only screen and (min-width: 1320px) {
+    .logo {
+      min-width: 150px;
+    }
+  }
+  
+  #logo {
+    width: 1.176rem;
+    opacity: 0.7;
+    transition: opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  
+  #logo:hover {
+    opacity: 1;
+  }

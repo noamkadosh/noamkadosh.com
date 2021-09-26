@@ -1,0 +1,57 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+#contact {
+  width: 100%;
+  max-width: 100vh;
+  height: auto;
+  margin: 0 auto;
+  min-height: calc(100vh - 48px - 24px);
+  text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+  #contact {
+    min-height: calc(100vh - 52px - 25px);
+  }
+}
+
+#contact .text {
+  max-width: 700px;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-list .contact-item {
+  display: inline-block;
+}
+
+.contact-button {
+  border-radius: 50%;
+  padding: 10px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-button::before, .contact-button::after {
+  border-radius: 50%;
+}
+
+.contact-button svg {
+  fill: $emphasis;
+  opacity: 1;
+  transition: fill 350ms ease-in-out;
+}
+
+
+.contact-button:hover svg {
+  fill: $btn-text-hover;
+}

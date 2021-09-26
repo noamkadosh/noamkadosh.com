@@ -1,0 +1,19 @@
+<section id="projects" class="content-section flex-center-column">
+  <h2 class="headline" appScrollingAnimation>Latest Projects</h2>
+  <ul class="projects-list">
+    <li class="projects-item" *ngFor="let project of projects" appScrollingAnimation>
+      <div class="projects-item-icon" id="{{ project.name | removeDot }}"></div>
+      <div class="gradient-text-container projects-item-title">
+        <h3 class="gradient-text"><span>{{ project.name | removeUnderscore | titlecase }}</span></h3>
+      </div>
+      <div class="projects-item-chip"><span class="chip tiny">{{ project.language }}</span></div>
+      <p class="emphasis projects-item-subtitle">{{ project.updated_at.toString() | toDate }}</p>
+      <p class="projects-item-content text">{{ project.description }}</p>
+      <div class="projects-item-action">
+        <a class="link" target="_blank" rel="noopener noreferrer" href="{{ project.html_url }}">
+          <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 16 16"><path d="M7.5 4.5L6.44 5.56 9.88 9l-3.44 3.44L7.5 13.5 12 9z"/></svg><span class="link-text">Go to project</span>
+        </a>
+      </div>
+    </li>
+  </ul>
+</section>

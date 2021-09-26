@@ -1,0 +1,14 @@
+<section class="admin-section flex-center-column-top" id="timeline-admin-section">
+    <button class="admin-header"  (click)="toggleAdminMenu()">
+        <h3 class="headline">Timelines</h3>
+        <svg [class.rotate-chevron]="isAdminMenuClicked" xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 407.436 407.436">
+            <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "/>
+        </svg>
+    </button>
+    <div class="collapsible flex-center-column-top" [@toggleAdminMenu]="isAdminMenuClicked ? 'open' : 'closed'">
+        <ul id="timelines-list">
+            <li *ngFor="let timeline of timelines"><app-timeline-item-admin [timeline]="timeline"></app-timeline-item-admin></li>
+            <li><app-timeline-item-admin [addMode]="true"></app-timeline-item-admin></li>
+        </ul>
+    </div>
+</section>

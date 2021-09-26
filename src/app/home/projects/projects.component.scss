@@ -1,0 +1,93 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+//### Projects Grid ###//
+.projects-item {
+  display: grid;
+  grid-template-columns: 40px auto min-content;
+  grid-template-rows: fit-content fit-content fit-content fit-content;
+  gap: 10px 10px;
+  grid-template-areas:
+      "projects-item-icon projects-item-title projects-item-chip"
+      "projects-item-subtitle projects-item-subtitle projects-item-subtitle"
+      "projects-item-content projects-item-content projects-item-content"
+      "projects-item-action projects-item-action projects-item-action";
+}
+
+.projects-item-icon { grid-area: projects-item-icon; }
+.projects-item-title { grid-area: projects-item-title; }
+.projects-item-chip { grid-area: projects-item-chip; }
+.projects-item-subtitle { grid-area: projects-item-subtitle; }
+.projects-item-content { grid-area: projects-item-content; }
+.projects-item-action { grid-area: projects-item-action; }
+//### Projects Grid - END ###//
+
+#projects {
+  min-height: 100vh;
+}
+
+#projects .projects-list {
+  max-width: 750px;
+  min-width: 250px;
+  width: 95%;
+  list-style: none;
+  padding: 0;
+  margin: 3rem 0;
+}
+
+@media only screen and (min-width: 600px) {
+  #projects .projects-list {
+    max-width: 750px;
+    min-width: 250px;
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #projects .projects-list {
+    max-width: 750px;
+    min-width: 250px;
+    width: 70%;
+  }
+}
+
+.projects-item {
+  background: $card-background;
+  border-radius: 18px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.projects-item-icon {
+  height: 48px;
+  width: 48px;
+  background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.projects-item-title .gradient-text {
+  padding: 6.5px 6px;
+}
+
+#noamkadoshcom {
+  background-image: url('../../../assets/project-images/website-project.jpg');
+}
+
+#titanic {
+  background-image: url('../../../assets/project-images/titanic-project.jpg');
+}
+
+#us_airbnb_open {
+  background-image: url('../../../assets/project-images/us-airbnb-open-data-project.jpg');
+}
+
+#vaadit {
+  background-image: url('../../../assets/project-images/building.jpg');
+}
+
+#payment-app {
+  background-image: url('../../../assets/project-images/payment-app.jpg');
+}

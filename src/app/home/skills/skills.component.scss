@@ -1,0 +1,42 @@
+//### Skills Grid ###//
+.skills-list {
+    display: grid;grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto auto;
+    gap: 3rem 1rem;
+  }
+
+@media only screen and (min-width: 600px) {
+    .skills-list {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto auto auto;
+        gap: 3rem 1rem;
+      } 
+}
+//### Skills Grid - END ###//
+
+#skills .skills-list {
+    max-width: 750px;
+    min-width: 250px;
+    width: 95%;
+    list-style: none;
+    padding: 0;
+    margin: 4rem 0;
+  }
+  
+  @media only screen and (min-width: 600px) {
+    #skills .skills-list {
+      max-width: 750px;
+      min-width: 250px;
+      width: 90%;
+    }
+  }
+  
+  @media only screen and (min-width: 900px) {
+    #skills .skills-list {
+      max-width: 750px;
+      min-width: 250px;
+      width: 70%;
+    }
+  }
+

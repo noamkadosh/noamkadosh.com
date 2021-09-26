@@ -1,0 +1,205 @@
+@import "~/src/scss/mixins";
+@import "~/src/scss/functions";
+@import "~/src/scss/variables";
+
+// Add rest of styles.
+.container {
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: black;
+    -webkit-font-smoothing: antialiased;
+}
+
+.headline {
+    color: $headline;
+}
+
+.secondary-headline {
+    color: $secondary-headline;
+}
+
+.text {
+    color: $text
+}
+
+.emphasis, .nav-link {
+    color: $emphasis;
+}
+
+.gradient-text {
+    font-size: 1.882rem;
+    font-weight: 450;
+    line-height: 2.118rem;
+    letter-spacing: 0.007rem;
+    color: transparent;
+    background-image: linear-gradient(to right, $gradient-from, $gradient-to);
+    background-clip: text;
+    // Remember to adjust the container's width to fit the text inside using:
+    // display: inline-block;
+}
+
+.bold {
+    font-size: 1.235rem;
+    font-weight: 500;
+    line-height: 1.471rem;
+    letter-spacing: 0.014rem;
+}
+
+.tiny {
+    font-size: 0.706rem;
+    font-weight: 500;
+    line-height: 0.941rem;
+    letter-spacing: -0.007rem;
+}
+
+.link {
+    color: $link;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.link-icon {
+    height: auto;
+    font-size: calc(100% + 3px);
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+
+.link-icon:hover {
+    text-decoration: none;
+}
+
+.link-text:hover {
+    text-decoration: underline;
+}
+
+.link-icon:hover ~ .link-text {
+    text-decoration: underline;
+}
+
+.nav-link {
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.824rem;
+    font-weight: 300;
+    line-height: 2.588rem;
+    letter-spacing: 0.008rem;
+    opacity: 0.8;
+    transition: opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+.btn {
+    font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;
+    position: relative;
+    cursor: pointer;
+    color: $btn-text;
+    background-color: $btn-background;
+    font-size: 1rem;
+    font-weight: 425;
+    line-height: 1.176rem;
+    letter-spacing: -0.022rem;
+    min-width: 1.647rem;
+    padding: 8px 16px;
+    text-align: center;
+    border: 0px;
+    border-radius: 18px;
+    overflow-y: visible;
+    overflow-x: visible;
+    transform-style: preserve-3d;
+    transition: color 350ms ease-in-out, background-color 350ms ease-in-out;
+}
+
+.btn:hover {
+    color: $btn-text-hover;
+    background-color: $btn-background-hover;
+}
+
+.gradient-btn::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    background-attachment: scroll;
+    background-clip: border-box;
+    border-radius: 18px;
+    background-color: transparent;
+    background-image: linear-gradient($gradient-to 35%, $gradient-from 45%);
+    background-origin: padding-box;
+    background-size:100% 200%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: calc(100% + 2.5px);
+    height: calc(100% + 2px);
+    transform: translateZ(-1px);
+    z-index: -1;
+}
+
+.gradient-btn::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    background-attachment: scroll;
+    background-clip: border-box;
+    border-radius: 18px;
+    background-color: transparent;
+    background-origin: padding-box;
+    background-size:100% 200%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: calc(100% + 2.5px);
+    height: calc(100% + 2px);
+    transform: translateZ(-1px);
+    transition: background-color 350ms ease-in-out;
+}
+
+.gradient-btn:hover::before {
+    background-color: $btn-background;
+}
+
+.secondary-btn::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    background-attachment: scroll;
+    background-clip: border-box;
+    border-radius: 18px;
+    background-color: transparent;
+    background-image: linear-gradient($btn-background, $btn-background);
+    background-origin: padding-box;
+    background-size:100% 200%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: calc(100% + 2.5px);
+    height: calc(100% + 2px);
+    transform: translateZ(-1px);
+    z-index: -1;
+}
+
+.secondary-btn:hover::after {
+    background-color: $btn-background;
+}
+
+
+
+nav {
+    background-color: $navigation-background;
+    box-sizing: border-box;
+    padding: 0 30px;
+}
