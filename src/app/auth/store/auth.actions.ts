@@ -15,7 +15,6 @@ export const loginSuccess = createAction(
     _id: string,
     token: string,
     expirationDate: Date,
-    msg: string,
     redirect: boolean
   }>()
 );
@@ -30,10 +29,7 @@ export const signupStart = createAction(
 );
 
 export const signupSuccess = createAction(
-  '[Auth] Signup Success',
-  props<{
-    msg: string
-  }>()
+  '[Auth] Signup Success'
 );
 
 export const authenticateFail = createAction(

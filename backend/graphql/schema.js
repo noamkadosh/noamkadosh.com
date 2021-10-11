@@ -25,7 +25,7 @@ module.exports = buildSchema(`
   }
 
   type RootMutation {
-    signup(userInput: UserInputData): User
+    signup(userInput: UserInputData): User!
   }
 
   schema {

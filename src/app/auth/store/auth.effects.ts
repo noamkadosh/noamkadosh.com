@@ -13,11 +13,10 @@ import { ErrorService } from '../../shared/services/error.service';
 import { ErrorComponent } from '../../shared/components/error/error.component';
 
 interface AuthResponse {
-  msg: string;
+  email: string;
+  _id: string;
   token: string;
   expiresIn: number;
-  _id: string;
-  email: string;
 }
 
 @Injectable()
@@ -27,9 +26,27 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.loginStart),
       switchMap(action =>
-        this.http.post<AuthResponse>(environment.API_URL + "/auth/login", {
-          email: action.email,
-          password: action.password
+        // Rest API
+        // this.http.post<AuthResponse>(environment.API_URL + "/auth/login", {
+        //   email: action.email,
+        //   password: action.password
+        // })
+
+        // GraphQL
+        this.http.post<AuthResponse>(environment.GRAPHQL_URL, {
+          query: `
+            query {
+              login(userInput: {
+                email: "${ action.email }",
+                password: "${ action.password }"
+              }) {
+                email
+                _id
+                token
+                expiresIn
+              }
+            }
+          `
         })
         .pipe(
           tap(response => {
@@ -45,7 +62,6 @@ export class AuthEffects {
               _id: response._id,
               token: response.token,
               expirationDate,
-              msg: response.msg,
               redirect: true
             });
           }),
@@ -71,14 +87,30 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.signupStart),
       switchMap(action =>
-        this.http.post<AuthResponse>(environment.API_URL + "/auth/signup", {
-          email: action.email,
-          password: action.password,
-          passwordConfirmation: action.passwordConfirmation
+        // Rest API
+        // this.http.post<AuthResponse>(environment.API_URL + "/auth/signup", {
+        //   email: action.email,
+        //   password: action.password,
+        //   passwordConfirmation: action.passwordConfirmation
+        // })
+
+        // GraphQL
+        this.http.post<AuthResponse>(environment.GRAPHQL_URL, {
+          query: `
+            mutation {
+              signup(userInput: {
+                email: "${ action.email }",
+                password: "${ action.password }",
+                passwordConfirmation: ${ action.passwordConfirmation }
+              }) {
+                _id
+              }
+            }
+          `
         })
         .pipe(
           map(response =>
-            AuthActions.signupSuccess({ msg: response.msg })
+            AuthActions.signupSuccess()
           ),
           catchError(error =>
             of(AuthActions.authenticateFail({ error: error.error }))
@@ -142,7 +174,6 @@ export class AuthEffects {
               _id: loadedUser._id,
               token: loadedUser.token,
               expirationDate: new Date(user._tokenExpirationDate),
-              msg: 'Successfully logged in.',
               redirect: true
             });
           } else {
