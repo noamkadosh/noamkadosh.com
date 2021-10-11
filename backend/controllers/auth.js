@@ -25,9 +25,7 @@ exports.signup = (req, res, next) => {
             });
             user.save()
                 .then(result => {
-                    res.status(201).json({
-                      msg: 'Signed up successfully.',
-                    });
+                    res.status(201).json();
                 })
                 .catch(err => {
                     const error =  new Error(err);
@@ -80,7 +78,6 @@ exports.login = (req, res, next) => {
                     expiresIn: '1h'
                 });
                 res.status(200).json({
-                  msg: 'Successfully logged in.',
                     token: token,
                     expiresIn: 3600000,
                     _id: user._id,

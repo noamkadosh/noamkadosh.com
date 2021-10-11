@@ -1,6 +1,10 @@
 // const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const { graphqlHTTP } = require('express-graphql');
+
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
 const port = 8080;
 
@@ -33,6 +37,24 @@ app.use(twitterRoutes);
 // app.use((req, res, next) => {
 //   res.sendFile(path.join(__dirname, "app", "index.html"));
 // });
+
+app.use('/graphql',
+  graphqlHTTP({
+    schema: graphqlSchema,
+    rootValue: graphqlResolver,
+    graphiql: true,
+    customFormatErrorFn: (err) => {
+      if (!err.originalError) {
+        return err;
+      }
+      const error = new Error(err.message || 'Unknown error occured.');
+      error.data = err.originalError.data;
+      error.msg = err.message || 'Unknown error occured.';
+      error.status = err.originalError.code || 500;
+      return error;
+    }
+  })
+);
 
 app.use(errorMiddleware);
 

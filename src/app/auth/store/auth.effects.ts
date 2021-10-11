@@ -62,7 +62,7 @@ export class AuthEffects {
       ofType(AuthActions.loginSuccess),
       tap(action => {
         action.redirect && this.router.navigate(['/admin']);
-        this.errorService.display(ErrorComponent, { message: action.msg, isSuccess: true });
+        this.errorService.display(ErrorComponent, { message: 'Successfully logged in.', isSuccess: true });
       })
     ), { dispatch: false }
   );
@@ -92,7 +92,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.signupSuccess),
       tap(action => {
-        this.errorService.display(ErrorComponent, { message: action.msg, isSuccess: true });
+        this.errorService.display(ErrorComponent, { message: 'Signed up successfully.', isSuccess: true });
       })
     ), { dispatch: false }
   );
