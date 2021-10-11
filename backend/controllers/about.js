@@ -8,7 +8,7 @@ exports.getAbout = (req, res, next) => {
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -20,14 +20,14 @@ exports.postAbout = (req, res, next) => {
     about.save()
         .then(() => {
             res.status(201).json({
-                message: 'About added successfully.',
+              msg: 'About added successfully.',
                 _id: settings._id
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -42,14 +42,14 @@ exports.putAbout = (req, res, next) => {
         }, about)
         .then(result => {
             res.status(200).json({
-                message: 'About updated successfully.',
+              msg: 'About updated successfully.',
                 result: result
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };

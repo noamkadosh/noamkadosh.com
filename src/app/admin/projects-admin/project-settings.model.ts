@@ -1,4 +1,6 @@
 export class ProjectSettings {
-  _id: string = '';
-  project_count: number = 4;
+  constructor(
+    public project_count: number = 4,
+    public _id: string = ''
+  ) {}
 }

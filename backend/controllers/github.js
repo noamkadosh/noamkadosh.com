@@ -18,7 +18,7 @@ exports.getSettings = (req, res, next) => {
     .catch(err => {
       const error =  new Error(err);
       error.status = 401;
-      error.message = 'Unknown error occured.';
+      error.msg = 'Unknown error occured.';
       return next(error);
     });
 };
@@ -28,7 +28,7 @@ exports.postSettings = (req, res, next) => {
   if (!errors.isEmpty()) {
       const error =  new Error('Invalid input.');
       error.status = 422;
-      error.message = 'Invalid input.';
+      error.msg = 'Invalid input.';
       error.errors = errors.array();
       return next(error);
   }
@@ -36,14 +36,14 @@ exports.postSettings = (req, res, next) => {
   settings.project_count = req.body.project_count;
   settings.save().then(() => {
       res.status(201).json({
-        message: 'Settings added successfully.',
+        msg: 'Settings added successfully.',
         _id: settings._id
       });
     })
     .catch(err => {
       const error =  new Error(err);
       error.status = 401;
-      error.message = 'Unknown error occured.';
+      error.msg = 'Unknown error occured.';
       return next(error);
     });
 };
@@ -53,7 +53,7 @@ exports.putSettings = (req, res, next) => {
   if (!errors.isEmpty()) {
       const error =  new Error('Invalid input.');
       error.status = 422;
-      error.message = 'Invalid input.';
+      error.msg = 'Invalid input.';
       error.errors = errors.array();
       return next(error);
   }
@@ -65,14 +65,14 @@ exports.putSettings = (req, res, next) => {
     }, settings)
     .then(result => {
       res.status(200).json({
-        message: 'Github settings updated successfully.',
+        msg: 'Github settings updated successfully.',
         result: result
       });
     })
     .catch(err => {
       const error =  new Error(err);
       error.status = 401;
-      error.message = 'Unknown error occured.';
+      error.msg = 'Unknown error occured.';
       return next(error);
     });
 };
@@ -108,7 +108,7 @@ exports.getRepos = (req, res, next) => {
               .catch(err => {
                 const error =  new Error(err);
                 error.status = 401;
-                error.message = 'Unknown error occured.';
+                error.msg = 'Unknown error occured.';
                 return next(error);
               });
           }
@@ -116,14 +116,14 @@ exports.getRepos = (req, res, next) => {
         .catch(err => {
           const error =  new Error(err);
           error.status = 401;
-          error.message = 'Unknown error occured.';
+          error.msg = 'Unknown error occured.';
           return next(error);
         });
     })
     .catch(err => {
       const error =  new Error(err);
       error.status = 401;
-      error.message = 'Unknown error occured.';
+      error.msg = 'Unknown error occured.';
       return next(error);
     });
 };

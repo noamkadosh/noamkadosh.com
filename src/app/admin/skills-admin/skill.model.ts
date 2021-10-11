@@ -1,5 +1,8 @@
 export class Skill {
-    _id: string = '';
-    name: string = '';
-    rating: number = 5;
-  }
+
+  constructor(
+    public name: string = '',
+    public rating: number = 0,
+    public _id: string = ''
+  ) {}
+}

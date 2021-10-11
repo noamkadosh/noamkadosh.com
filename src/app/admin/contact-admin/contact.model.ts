@@ -1,5 +1,7 @@
 export class Contact {
-    _id: string = '';
-    contact_title: string = '';
-    contact_text: string = '';
-  }
+  constructor(
+    public contact_title: string = '',
+    public contact_text: string = '',
+    public _id: string = ''
+  ) {}
+}

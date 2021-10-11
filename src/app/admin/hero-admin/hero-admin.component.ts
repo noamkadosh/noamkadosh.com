@@ -40,11 +40,7 @@ import { ErrorService } from "src/app/shared/services/error.service";
 export class HeroAdminComponent implements OnInit {
 
   isAdminMenuClicked: boolean = false;
-  hero: Hero = {
-    _id: '',
-    title: '',
-    subtitle: ''
-  };
+  hero: Hero = new Hero();
   isLoading: boolean = false;
 
   constructor(private heroService: HeroService, private errorService: ErrorService) {}
@@ -67,10 +63,10 @@ export class HeroAdminComponent implements OnInit {
       return;
      }
     this.isLoading = true;
-    this.hero.title = form.value.title;
-    this.hero.subtitle = form.value.subtitle;
-    this.heroService.update(this.hero._id, this.hero).subscribe((response) => {
-      this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+    const newHero = new Hero(form.value.title, form.value.subtitle, this.hero._id);
+    this.heroService.update(this.hero._id, newHero).subscribe((response) => {
+      this.hero = newHero;
+      this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
       this.isLoading = false;
     },
     err => {

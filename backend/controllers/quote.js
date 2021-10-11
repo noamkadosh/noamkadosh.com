@@ -8,7 +8,7 @@ exports.getQuote = (req, res, next) => {
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -20,14 +20,14 @@ exports.postQuote = (req, res, next) => {
     quote.save()
         .then(() => {
             res.status(201).json({
-                message: 'Quote added successfully.',
+              msg: 'Quote added successfully.',
                 _id: quote._id
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -42,14 +42,14 @@ exports.putQuote = (req, res, next) => {
         })
         .then(result => {
             res.status(200).json({
-                message: 'Quote updated successfully.',
+              msg: 'Quote updated successfully.',
                 result: result
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };

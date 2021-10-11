@@ -1,5 +1,5 @@
 export class Response {
-    message: string = '';
+    msg: string = '';
     result?: any;
     _id?: string;
     status? : number;

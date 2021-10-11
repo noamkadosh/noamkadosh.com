@@ -1,5 +1,7 @@
 export class Hero {
-  _id: string = '';
-  title: string = '';
-  subtitle: string = '';
+  constructor(
+    public title: string = '',
+    public subtitle: string = '',
+    public _id: string = ''
+  ) {}
 }

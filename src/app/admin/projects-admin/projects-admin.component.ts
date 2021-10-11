@@ -39,10 +39,7 @@ import { ErrorService } from "src/app/shared/services/error.service";
 })
 export class ProjectsAdminComponent implements OnInit {
   isAdminMenuClicked: boolean = false;
-  projectSettings: ProjectSettings = {
-    _id: '',
-    project_count: 4
-  };
+  projectSettings: ProjectSettings = new ProjectSettings();
   isLoading: boolean = false;
 
   constructor(private projectsService: ProjectsService, private errorService: ErrorService) { }
@@ -65,9 +62,10 @@ export class ProjectsAdminComponent implements OnInit {
       return;
      }
     this.isLoading = true;
-    this.projectSettings.project_count = form.value.project_count;
-    this.projectsService.update(this.projectSettings._id, this.projectSettings).subscribe(response => {
-      this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+    const newProjectSettings = new ProjectSettings(form.value.project_count, this.projectSettings._id);
+    this.projectsService.update(this.projectSettings._id, newProjectSettings).subscribe(response => {
+      this.projectSettings = newProjectSettings;
+      this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
       this.isLoading = false;
     },
     err => {

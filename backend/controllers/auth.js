@@ -6,14 +6,14 @@ const jwt_config = require('../config').jwt;
 const User = require('../models/user');
 
 exports.signup = (req, res, next) => {
-    // return res(401).json({
+    // return res(400).json({
     //     message: 'Admin has disabled this option.'
     // });
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const error =  new Error('Invalid input.');
-        error.status = 401;
-        error.message = 'Invalid input.';
+        error.status = 422;
+        error.msg = 'Invalid input.';
         error.errors = errors.array();
         return next(error);
     }
@@ -26,20 +26,20 @@ exports.signup = (req, res, next) => {
             user.save()
                 .then(result => {
                     res.status(201).json({
-                        message: 'Signed up successfully.',
+                      msg: 'Signed up successfully.',
                     });
                 })
                 .catch(err => {
                     const error =  new Error(err);
-                    error.status = 401;
-                    error.message = 'Unknown error occured';
+                    error.status = 400;
+                    error.msg = 'Unknown error occured';
                     return next(error);
                 });
         })
         .catch(err => {
             const error =  new Error(err);
-            error.status = 401;
-            error.message = 'One or more of your credentials is wrong.';
+            error.status = 400;
+            error.msg = 'Unknown error occured';
             return next(error);
         });
 };
@@ -48,8 +48,8 @@ exports.login = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const error =  new Error('Invalid input.');
-        error.status = 401;
-        error.message = 'Invalid input.';
+        error.status = 422;
+        error.msg = 'Invalid input.';
         error.errors = errors.array();
         return next(error);
     }
@@ -60,8 +60,8 @@ exports.login = (req, res, next) => {
         .then(user => {
             if (!user) {
                 const error =  new Error('One or more of your credentials is wrong.');
-                error.status = 401;
-                error.message = 'One or more of your credentials is wrong.';
+                error.status = 422;
+                error.msg = 'One or more of your credentials is wrong.';
                 return next(error);
             }
             fetchedUser = user;
@@ -69,8 +69,8 @@ exports.login = (req, res, next) => {
             .then(result => {
                 if (!result) {
                     const error =  new Error('One or more of your credentials is wrong.');
-                    error.status = 401;
-                    error.message = 'One or more of your credentials is wrong.';
+                    error.status = 422;
+                    error.msg = 'One or more of your credentials is wrong.';
                     return next(error);
                 }
                 const token = jwt.sign({
@@ -80,22 +80,24 @@ exports.login = (req, res, next) => {
                     expiresIn: '1h'
                 });
                 res.status(200).json({
-                    message: 'Successfully logged in.',
+                  msg: 'Successfully logged in.',
                     token: token,
-                    expiresIn: 3600
+                    expiresIn: 3600000,
+                    _id: user._id,
+                    email: user.email
                 });
             })
             .catch(err => {
                 const error =  new Error(err);
-                error.status = 401;
-                error.message = 'One or more of your credentials is wrong.';
+                error.status = 422;
+                error.msg = 'One or more of your credentials is wrong.';
                 return next(error);
             });
         })
         .catch(err => {
             const error =  new Error(err);
-            error.status = 401;
-            error.message = 'One or more of your credentials is wrong.';
+            error.status = 422;
+            error.msg = 'One or more of your credentials is wrong.';
             return next(error);
         });
 };

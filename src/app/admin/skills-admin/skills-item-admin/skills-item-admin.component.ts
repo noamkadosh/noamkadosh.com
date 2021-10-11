@@ -41,11 +41,7 @@ export class SkillsItemAdminComponent implements OnInit {
 
   isItemClicked: boolean = false;
   @Input() addMode: boolean = false;
-  @Input() skill: Skill = {
-    _id: '',
-    name: '',
-    rating: 5
-  };
+  @Input() skill: Skill = new Skill();
   isLoading: boolean = false;
 
   constructor(private skillsService: SkillsService, private errorService: ErrorService) {}
@@ -65,14 +61,12 @@ export class SkillsItemAdminComponent implements OnInit {
      }
     this.isLoading = true;
      if (this.addMode) {
-      const newSkill = new Skill();
-      newSkill.name = form.value.skill_name;
-      newSkill.rating = form.value.skill_rating;
+      const newSkill = new Skill(form.value.skill_name, form.value.skill_rating);
       this.skillsService.save(newSkill).subscribe(response => {
         if (response !== null && response._id) {
           newSkill._id = response._id;
           this.skillsService.addToUI.next(newSkill);
-          this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+          this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
           form.reset();
         } else {
           this.errorService.display(ErrorComponent, { message: 'Invalid input.', isSuccess: false });
@@ -83,10 +77,10 @@ export class SkillsItemAdminComponent implements OnInit {
         this.isLoading = false;
       });
      } else {
-      this.skill.name = form.value.skill_name;
-      this.skill.rating = form.value.skill_rating;
-      this.skillsService.update(this.skill._id, this.skill).subscribe(response => {
-        this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+      const newSkill = new Skill(form.value.skill_name, form.value.skill_rating, this.skill._id);
+      this.skillsService.update(this.skill._id!, newSkill).subscribe(response => {
+        this.skill = newSkill;
+        this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
         this.isLoading = false;
       },
       err => {
@@ -97,9 +91,9 @@ export class SkillsItemAdminComponent implements OnInit {
 
   onDelete() {
     this.isLoading = true;
-      this.skillsService.delete(this.skill._id).subscribe(response => {
+      this.skillsService.delete(this.skill._id!).subscribe(response => {
         this.skillsService.deleteFromUI.next(this.skill);
-        this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+        this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
         this.isLoading = false;
       },
       err => {

@@ -1,5 +1,7 @@
 export class About {
-    _id: string = '';
-    text: string = '';
-    bold_text: string = '';
-  }
+  constructor(
+    public text: string = '',
+    public bold_text: string = '',
+    public _id: string = ''
+  ) {}
+}

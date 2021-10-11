@@ -8,7 +8,7 @@ exports.getSkills = (req, res, next) => {
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -23,14 +23,14 @@ exports.postSkill = (req, res, next) => {
     skill.save()
         .then(() => {
             res.status(201).json({
-                message: 'Skill added successfully.',
+              msg: 'Skill added successfully.',
                 _id: skill._id
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -45,14 +45,14 @@ exports.putSkill = (req, res, next) => {
         }, skill)
         .then(result => {
             res.status(200).json({
-                message: 'Skill updated successfully.',
+              msg: 'Skill updated successfully.',
                 result: result
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -63,14 +63,14 @@ exports.deleteSkill = (req, res, next) => {
         })
         .then(result => {
             res.status(200).json({
-                message: 'Skill deleted successfully.',
+              msg: 'Skill deleted successfully.',
                 result: result
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };

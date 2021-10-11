@@ -39,11 +39,7 @@ import { ErrorService } from "src/app/shared/services/error.service";
 })
 export class AboutAdminComponent implements OnInit {
   isAdminMenuClicked: boolean = false;
-  about: About = {
-    _id: '',
-    text: '',
-    bold_text: ''
-  };
+  about: About = new About();
   isLoading: boolean = false;
 
   constructor(private aboutService: AboutService, private errorService: ErrorService) { }
@@ -66,10 +62,10 @@ export class AboutAdminComponent implements OnInit {
       return;
      }
     this.isLoading = true;
-    this.about.text = form.value.text;
-    this.about.bold_text = form.value.bold_text;
-    this.aboutService.update(this.about._id, this.about).subscribe(response => {
-      this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+    const newAbout = new About(form.value.text, form.value.bold_text, this.about._id);
+    this.aboutService.update(this.about._id, newAbout).subscribe(response => {
+      this.about = newAbout;
+      this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
       this.isLoading = false;
     },
     err => {

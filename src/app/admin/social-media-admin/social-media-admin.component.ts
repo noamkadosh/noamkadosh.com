@@ -39,10 +39,7 @@ import { ErrorService } from "src/app/shared/services/error.service";
 })
 export class SocialMediaAdminComponent implements OnInit {
   isAdminMenuClicked: boolean = false;
-  twitterSettings: TwitterSettings = {
-    _id: "",
-    tweet_count: 4,
-  };
+  twitterSettings: TwitterSettings = new TwitterSettings();
   isLoading: boolean = false;
 
   constructor(private twitterSettingsService: TwitterSettingsService, private errorService: ErrorService) {}
@@ -64,11 +61,12 @@ export class SocialMediaAdminComponent implements OnInit {
       return;
      }
     this.isLoading = true;
-    this.twitterSettings.tweet_count = form.value.tweet_count;
+    const newTwitterSettings = new TwitterSettings(form.value.tweet_count, this.twitterSettings._id);
     this.twitterSettingsService
-      .update(this.twitterSettings._id, this.twitterSettings)
+      .update(this.twitterSettings._id, newTwitterSettings)
       .subscribe(response => {
-        this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+        this.twitterSettings = newTwitterSettings;
+        this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
         this.isLoading = false;
       },
       err => {

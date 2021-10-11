@@ -1,9 +1,12 @@
 export class TimelineItem {
-    _id: string = '';
-    role: string = '';
-    company: string = '';
-    description: string = '';
-    link: string = '';
-    badge: string = '';
-    year: number = 1991;
-  }
+
+  constructor(
+    public role: string = '',
+    public company: string = '',
+    public description: string = '',
+    public link: string = '',
+    public badge: string = '',
+    public year: number = 1991,
+    public _id?: string
+  ) {}
+}

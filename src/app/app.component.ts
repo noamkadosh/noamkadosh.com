@@ -1,7 +1,9 @@
-import { AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from './auth/auth.service';
+import * as fromApp from './store/app.reducer';
+import * as AuthActions from './auth/store/auth.actions';
 import { HookDirective } from './shared/directives/hook.directive';
 import { ErrorService } from './shared/services/error.service';
 
@@ -14,10 +16,10 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild(HookDirective, { static: false}) errorHost!: HookDirective;
 
-  constructor(private authService: AuthService, private errorService: ErrorService) { }
+  constructor(private store: Store<fromApp.AppState>, private errorService: ErrorService) { }
 
   ngAfterViewInit() {
     this.errorService.setHook(this.errorHost);
-    setTimeout(() => this.authService.autoLogin());
+    setTimeout(() => this.store.dispatch(AuthActions.autoLogin()));
   }
 }

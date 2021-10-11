@@ -8,7 +8,7 @@ exports.getContact = (req, res, next) => {
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -20,7 +20,7 @@ exports.postContact = (req, res, next) => {
     contact.save()
         .then(() => {
             res.status(201).json({
-                message: 'Contact added successfully.',
+              msg: 'Contact added successfully.',
                 _id: settings._id
             });
 
@@ -28,7 +28,7 @@ exports.postContact = (req, res, next) => {
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };
@@ -43,14 +43,14 @@ exports.putContact = (req, res, next) => {
         }, contact)
         .then(result => {
             res.status(200).json({
-                message: 'Contact updated successfully.',
+              msg: 'Contact updated successfully.',
                 result: result
             });
         })
         .catch(err => {
             const error =  new Error(err);
             error.status = 401;
-            error.message = 'Unknown error occured.';
+            error.msg = 'Unknown error occured.';
             return next(error);
         });
 };

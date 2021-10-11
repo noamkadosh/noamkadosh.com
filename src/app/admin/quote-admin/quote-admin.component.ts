@@ -40,11 +40,7 @@ import { ErrorService } from "src/app/shared/services/error.service";
 export class QuoteAdminComponent implements OnInit {
 
   isAdminMenuClicked: boolean = false;
-  quote: Quote = {
-    _id: '',
-    quote: '',
-    author: ''
-  };
+  quote: Quote = new Quote();
   isLoading: boolean = false;
 
   constructor(private quoteService: QuoteService, private errorService: ErrorService) {}
@@ -67,10 +63,10 @@ export class QuoteAdminComponent implements OnInit {
       return;
      }
     this.isLoading = true;
-    this.quote.quote = form.value.quote;
-    this.quote.author = form.value.author;
-    this.quoteService.update(this.quote._id, this.quote).subscribe(response => {
-      this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+    const newQuote = new Quote(form.value.quote, this.quote.author = form.value.author, this.quote._id);
+    this.quoteService.update(this.quote._id!, newQuote).subscribe(response => {
+      this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
+      this.quote = newQuote;
       this.isLoading = false;
     },
     err => {

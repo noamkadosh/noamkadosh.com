@@ -40,11 +40,7 @@ import { ErrorService } from "src/app/shared/services/error.service";
 export class ContactAdminComponent implements OnInit {
 
   isAdminMenuClicked: boolean = false;
-  contact: Contact = {
-    _id: '',
-    contact_title: '',
-    contact_text: ''
-  };
+  contact: Contact = new Contact();
   isLoading: boolean = false;
 
   constructor(private contactService: ContactService, private errorService: ErrorService) {}
@@ -67,10 +63,10 @@ export class ContactAdminComponent implements OnInit {
       return;
      }
     this.isLoading = true;
-    this.contact.contact_title = form.value.contact_title;
-    this.contact.contact_text = form.value.contact_text;
-    this.contactService.update(this.contact._id, this.contact).subscribe(response => {
-      this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+    const newContact = new Contact(form.value.contact_title, form.value.contact_text, this.contact._id);
+    this.contactService.update(this.contact._id, newContact).subscribe(response => {
+      this.contact = newContact;
+      this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
       this.isLoading = false;
     },
     err => {

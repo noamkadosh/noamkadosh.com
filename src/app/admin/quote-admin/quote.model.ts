@@ -1,5 +1,7 @@
 export class Quote {
-    _id: string = '';
-    quote: string = '';
-    author: string = '';
-  }
+  constructor(
+    public quote: string = '',
+    public author: string = '',
+    public _id: string = ''
+  ) {}
+}

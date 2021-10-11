@@ -41,15 +41,7 @@ export class TimelineItemAdminComponent implements OnInit {
 
   isItemClicked: boolean = false;
   @Input() addMode: boolean = false;
-  @Input() timeline: TimelineItem = {
-    _id: '',
-    role: '',
-    company: '',
-    description: '',
-    link: '',
-    badge: '',
-    year: 1991,
-  };
+  @Input() timeline: TimelineItem = new TimelineItem('', '', '', '', '', 1991);
   isLoading: boolean = false;
 
   constructor(private timelinesService: TimelinesService, private errorService: ErrorService) { }
@@ -69,18 +61,19 @@ export class TimelineItemAdminComponent implements OnInit {
      }
     this.isLoading = true;
     if (this.addMode) {
-     const newTimeline = new TimelineItem();
-     newTimeline.role = form.value.role;
-     newTimeline.company = form.value.company;
-     newTimeline.description = form.value.description;
-     newTimeline.link = form.value.link;
-     newTimeline.badge = form.value.badge;
-     newTimeline.year = form.value.year;
+     const newTimeline = new TimelineItem(
+      form.value.role,
+      form.value.company,
+      form.value.description,
+      form.value.link,
+      form.value.badge,
+      form.value.year
+     );
      this.timelinesService.save(newTimeline).subscribe(response => {
       if (response !== null && response._id) {
        newTimeline._id = response._id;
        this.timelinesService.addToUI.next(newTimeline);
-       this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+       this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
        form.reset();
       } else {
         this.errorService.display(ErrorComponent, { message: 'Invalid input.', isSuccess: false });
@@ -91,14 +84,18 @@ export class TimelineItemAdminComponent implements OnInit {
        this.isLoading = false;
      });
     } else {
-     this.timeline.role = form.value.role;
-     this.timeline.company = form.value.company;
-     this.timeline.description = form.value.description;
-     this.timeline.link = form.value.link;
-     this.timeline.badge = form.value.badge;
-     this.timeline.year = form.value.year;
-     this.timelinesService.update(this.timeline._id, this.timeline).subscribe(response => {
-      this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+     const newTimeline = new TimelineItem(
+       form.value.role,
+       form.value.company,
+       form.value.description,
+       form.value.link,
+       form.value.badge,
+       form.value.year,
+       this.timeline._id
+      );
+     this.timelinesService.update(this.timeline._id!, newTimeline).subscribe(response => {
+      this.timeline = newTimeline
+      this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
       this.isLoading = false;
      },
      err => {
@@ -109,9 +106,9 @@ export class TimelineItemAdminComponent implements OnInit {
 
  onDelete() {
   this.isLoading = true;
-     this.timelinesService.delete(this.timeline._id).subscribe(response => {
+     this.timelinesService.delete(this.timeline._id!).subscribe(response => {
        this.timelinesService.deleteFromUI.next(this.timeline);
-       this.errorService.display(ErrorComponent, { message: response.message, isSuccess: true });
+       this.errorService.display(ErrorComponent, { message: response.msg, isSuccess: true });
        this.isLoading = false;
      },
      err => {

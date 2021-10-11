@@ -1,4 +1,6 @@
 export class TwitterSettings {
-    _id: string = '';
-    tweet_count: number = 4;
-  }
+  constructor(
+    public tweet_count: number = 4,
+    public _id: string = ''
+  ) {}
+}
