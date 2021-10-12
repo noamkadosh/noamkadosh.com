@@ -14,8 +14,7 @@ export const loginSuccess = createAction(
     email: string,
     _id: string,
     token: string,
-    expirationDate: Date,
-    redirect: boolean
+    expirationDate: Date
   }>()
 );
 

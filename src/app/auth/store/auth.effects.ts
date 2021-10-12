@@ -13,10 +13,18 @@ import { ErrorService } from '../../shared/services/error.service';
 import { ErrorComponent } from '../../shared/components/error/error.component';
 
 interface AuthResponse {
-  email: string;
-  _id: string;
-  token: string;
-  expiresIn: number;
+  data: {
+    login: {
+      email: string;
+      _id: string;
+      token: string;
+      expiresIn: number;
+    },
+    signup: {
+      email: string;
+      _id: string;
+    }
+  }
 }
 
 @Injectable()
@@ -50,19 +58,18 @@ export class AuthEffects {
         })
         .pipe(
           tap(response => {
-            this.authService.setLogoutTimer(response.expiresIn);
+            this.authService.setLogoutTimer(response.data.login.expiresIn);
           }),
           map(response => {
             const now = new Date();
-            const expirationDate = new Date(now.getTime() + response.expiresIn);
-            const user = new User(response.email, response._id, response.token, expirationDate);
+            const expirationDate = new Date(now.getTime() + response.data.login.expiresIn);
+            const user = new User(response.data.login.email, response.data.login._id, response.data.login.token, expirationDate);
             localStorage.setItem('user', JSON.stringify(user));
             return AuthActions.loginSuccess({
-              email: response.email,
-              _id: response._id,
-              token: response.token,
-              expirationDate,
-              redirect: true
+              email: response.data.login.email,
+              _id: response.data.login._id,
+              token: response.data.login.token,
+              expirationDate
             });
           }),
           catchError(error =>
@@ -77,7 +84,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
       tap(action => {
-        action.redirect && this.router.navigate(['/admin']);
+        this.router.navigate(['/admin']);
         this.errorService.display(ErrorComponent, { message: 'Successfully logged in.', isSuccess: true });
       })
     ), { dispatch: false }
@@ -101,7 +108,7 @@ export class AuthEffects {
               signup(userInput: {
                 email: "${ action.email }",
                 password: "${ action.password }",
-                passwordConfirmation: ${ action.passwordConfirmation }
+                passwordConfirmation: "${ action.passwordConfirmation }"
               }) {
                 _id
               }
@@ -173,8 +180,7 @@ export class AuthEffects {
               email: loadedUser.email,
               _id: loadedUser._id,
               token: loadedUser.token,
-              expirationDate: new Date(user._tokenExpirationDate),
-              redirect: true
+              expirationDate: new Date(user._tokenExpirationDate)
             });
           } else {
             if (localStorage.getItem('user')) {
