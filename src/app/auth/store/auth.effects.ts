@@ -13,11 +13,18 @@ import { ErrorService } from '../../shared/services/error.service';
 import { ErrorComponent } from '../../shared/components/error/error.component';
 
 interface AuthResponse {
-  msg: string;
-  token: string;
-  expiresIn: number;
-  _id: string;
-  email: string;
+  data: {
+    login: {
+      email: string;
+      _id: string;
+      token: string;
+      expiresIn: number;
+    },
+    signup: {
+      email: string;
+      _id: string;
+    }
+  }
 }
 
 @Injectable()
@@ -27,26 +34,42 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.loginStart),
       switchMap(action =>
-        this.http.post<AuthResponse>(environment.API_URL + "/auth/login", {
-          email: action.email,
-          password: action.password
+        // Rest API
+        // this.http.post<AuthResponse>(environment.API_URL + "/auth/login", {
+        //   email: action.email,
+        //   password: action.password
+        // })
+
+        // GraphQL
+        this.http.post<AuthResponse>(environment.GRAPHQL_URL, {
+          query: `
+            query {
+              login(userInput: {
+                email: "${ action.email }",
+                password: "${ action.password }"
+              }) {
+                email
+                _id
+                token
+                expiresIn
+              }
+            }
+          `
         })
         .pipe(
           tap(response => {
-            this.authService.setLogoutTimer(response.expiresIn);
+            this.authService.setLogoutTimer(response.data.login.expiresIn);
           }),
           map(response => {
             const now = new Date();
-            const expirationDate = new Date(now.getTime() + response.expiresIn);
-            const user = new User(response.email, response._id, response.token, expirationDate);
+            const expirationDate = new Date(now.getTime() + response.data.login.expiresIn);
+            const user = new User(response.data.login.email, response.data.login._id, response.data.login.token, expirationDate);
             localStorage.setItem('user', JSON.stringify(user));
             return AuthActions.loginSuccess({
-              email: response.email,
-              _id: response._id,
-              token: response.token,
-              expirationDate,
-              msg: response.msg,
-              redirect: true
+              email: response.data.login.email,
+              _id: response.data.login._id,
+              token: response.data.login.token,
+              expirationDate
             });
           }),
           catchError(error =>
@@ -61,8 +84,8 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
       tap(action => {
-        action.redirect && this.router.navigate(['/admin']);
-        this.errorService.display(ErrorComponent, { message: action.msg, isSuccess: true });
+        this.router.navigate(['/admin']);
+        this.errorService.display(ErrorComponent, { message: 'Successfully logged in.', isSuccess: true });
       })
     ), { dispatch: false }
   );
@@ -71,14 +94,30 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.signupStart),
       switchMap(action =>
-        this.http.post<AuthResponse>(environment.API_URL + "/auth/signup", {
-          email: action.email,
-          password: action.password,
-          passwordConfirmation: action.passwordConfirmation
+        // Rest API
+        // this.http.post<AuthResponse>(environment.API_URL + "/auth/signup", {
+        //   email: action.email,
+        //   password: action.password,
+        //   passwordConfirmation: action.passwordConfirmation
+        // })
+
+        // GraphQL
+        this.http.post<AuthResponse>(environment.GRAPHQL_URL, {
+          query: `
+            mutation {
+              signup(userInput: {
+                email: "${ action.email }",
+                password: "${ action.password }",
+                passwordConfirmation: "${ action.passwordConfirmation }"
+              }) {
+                _id
+              }
+            }
+          `
         })
         .pipe(
           map(response =>
-            AuthActions.signupSuccess({ msg: response.msg })
+            AuthActions.signupSuccess()
           ),
           catchError(error =>
             of(AuthActions.authenticateFail({ error: error.error }))
@@ -92,7 +131,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.signupSuccess),
       tap(action => {
-        this.errorService.display(ErrorComponent, { message: action.msg, isSuccess: true });
+        this.errorService.display(ErrorComponent, { message: 'Signed up successfully.', isSuccess: true });
       })
     ), { dispatch: false }
   );
@@ -141,9 +180,7 @@ export class AuthEffects {
               email: loadedUser.email,
               _id: loadedUser._id,
               token: loadedUser.token,
-              expirationDate: new Date(user._tokenExpirationDate),
-              msg: 'Successfully logged in.',
-              redirect: true
+              expirationDate: new Date(user._tokenExpirationDate)
             });
           } else {
             if (localStorage.getItem('user')) {
